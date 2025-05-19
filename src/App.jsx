@@ -1,7 +1,13 @@
-import React ,{ useState } from 'react'
+import React ,{ useEffect, useState } from 'react'
 import MoodSelector from './MoodSelector'
 import { playlists } from './playlistData'
 import './App.css'
+
+const CLIENT_ID = "5ffa53f5536f4675bbfa3efc546eb7d9";
+const REDIRECT_URI = "http://127.0.0.1:5173/";
+const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+const RESPONSE_TYPE = "token";
+
 
 
 const moodColors = {
@@ -20,11 +26,49 @@ function App(){
    setSelectedMood(mood);
 }
 
+//Token Handeling Logic
+
+const [token , setToken] = useState("");
+
+useEffect(()=>{
+
+  const hash = window.location.hash;
+  let storedToken = window.localStorage.getItem("token");
+
+  if(!storedToken && hash){
+
+    const newToken = hash
+          //removes the # at the beggining
+          .substring(1)
+          //split the string into parts wherever there is &
+          .split("&")
+          //find item starts with accessToken
+          .find(item => item.startsWith("access_token"))
+          //splits it by = and takes the second part (index 1)
+          .split("=")[1]
+
+        //to remove the token from the URL to make it look cleaner
+        window.location.hash = "";
+
+        window.localStorage.setItem("token", newToken);
+        setToken(newToken); 
+
+        }else{
+          setToken(storedToken)
+        }
+}, [])
+
+
   return(
     
     <div className= {`text-center p-6 min-h-screen transition-all duration-500 text-center px-4 sm:px-8 p-6 min-h-screen
     
     ${selectedMood ? moodColors[selectedMood] : "bg-white"}`}>
+      {!token ? (
+        <a href="https://accounts.spotify.com/authorize?client_id=5ffa53f5536f4675bbfa3efc546eb7d9&redirect_uri=http://127.0.0.1:5173/&response_type=token" className="px-4 py-2 mb-4 inline-block bg-green-600 text-white rounded hover:bg-green-700 transition-colors">Login with Spotify</a>
+      ):(<p className="text-sm text-gray-500 mb-4">Logged in to Spotify</p>)}
+
+
       <h1 className="text-3xl font-bold mb-4">Pick Your Mood 🎧</h1>
       <MoodSelector onSelect={handleMoodSelect}/>
 
@@ -39,6 +83,7 @@ function App(){
       Surprise Me 🎲
 
       </button>
+
 
 
    {selectedMood && (

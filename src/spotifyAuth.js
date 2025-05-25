@@ -18,6 +18,7 @@ export async function exchangeToken(code) {
   console.log("Exchanging code:", code);
   console.log("Using verifier:", verifier);
 
+
   try {
     const response = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
@@ -37,5 +38,36 @@ export async function exchangeToken(code) {
   } catch (err) {
     console.error("Token exchange error:", err);
     throw err;
+  }
+}
+
+export async function fetchPlaylistsByMood(mood, token) {
+  const query = encodeURIComponent(mood);
+  const url = `https://api.spotify.com/v1/search?q=${query}&type=playlist&limit=5`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || "Failed to fetch playlists");
+    }
+
+    return data.playlists.items
+    .filter(item => item && item.name && item.external_urls?.spotify)
+    .map(item => ({
+    name: item.name,
+    url: item.external_urls.spotify,
+    image: item.images?.[0]?.url || null, // Safely handle missing images
+  }));
+
+  } catch (err) {
+    console.error("Error fetching playlists by mood:", err);
+    return [];
   }
 }

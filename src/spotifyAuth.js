@@ -1,7 +1,7 @@
 
 export async function exchangeToken(code) {
   const CLIENT_ID = "5ffa53f5536f4675bbfa3efc546eb7d9";
-  const REDIRECT_URI = "http://127.0.0.1:5173/";
+  const REDIRECT_URI = "https://mood-tunes-ten.vercel.app/";
   const verifier = localStorage.getItem("verifier");
 
   if (!verifier) {

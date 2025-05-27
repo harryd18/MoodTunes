@@ -25,7 +25,7 @@ When the user log in using Spotify, the app securely fetches an access token usi
 ## Live Demo
 
 You can try it out here:  
-👉 
+👉 (https://mood-tunes-ten.vercel.app/)
 
 ## Getting Started Locally
 

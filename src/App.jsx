@@ -204,6 +204,18 @@ useEffect(() => {
           </button>
         </div>
       )}
+    <footer className="fixed bottom-4 right-30 text-sm sm:text-base text-gray-800 bg-white/30 backdrop-blur-md shadow-md px-5 py-2.5 rounded-full flex items-center gap-3">
+  <span className="font-medium">Made by Harshit Dhasmana</span>
+  <a href="https://www.linkedin.com/in/harshit-dhasmana-15b9342bb" target="_blank">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" className="w-6 h-6" />
+  </a>
+  <a href="https://github.com/harryd18/MoodTunes" target="_blank">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" className="w-6 h-6" />
+  </a>
+</footer>
+
+
+
     </div>
   );
 }

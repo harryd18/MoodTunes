@@ -41,5 +41,5 @@ npm run dev
 Harshit Dhasmana  
 - Email : [dharshit2001@gmail.com](mailto:dharshit2001@gmail.com) 
 - Visit my LinkedIn : [LinkedIn](https://www.linkedin.com/in/harshit-dhasmana-15b9342bb)  
-- Visit my Github : [GitHub](https://github.com/harryd18)
+- Visit my Github : [GitHub](https://github.com/harryd18/MoodTunes)
 
